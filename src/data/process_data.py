@@ -4,6 +4,11 @@ This `mod` contains functions that would help process the data.
 
 import pandas as pd
 
+def get_multi_valued_features(train, test):
+	columns  = train.select_dtypes(include=['object']).columns
+	return [col for col in columns if train[col].nunique() > 2 or test[col].nunique() > 2]
+
+
 def one_hot_encode_features(train, test, features):
 	"""
 	One Hot Encoding of categorical features
