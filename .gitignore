@@ -74,3 +74,6 @@ target/
 
 # exclude submissions
 /submissions/
+
+# exclude figures
+/reports/figures/
