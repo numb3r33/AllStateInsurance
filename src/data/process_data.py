@@ -3,7 +3,18 @@ This `mod` contains functions that would help process the data.
 """
 from sklearn.preprocessing import LabelEncoder
 
+import os, sys
 import pandas as pd
+
+basepath = os.path.expanduser('~/Desktop/src/AllState_Claims_Severity/')
+sys.path.append(os.path.join(basepath, 'src'))
+
+def load_data():
+	train      = pd.read_csv(os.path.join(basepath, 'data/raw/train.csv'))
+	test       = pd.read_csv(os.path.join(basepath, 'data/raw/test.csv'))
+	sample_sub = pd.read_csv(os.path.join(basepath, 'data/raw/sample_submission.csv'))
+
+	return (train, test, sample_sub)
 
 def get_multi_valued_features(train, test):
 	columns  = train.select_dtypes(include=['object']).columns
