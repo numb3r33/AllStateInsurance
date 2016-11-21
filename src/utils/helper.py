@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+from sklearn.preprocessing import LabelEncoder
+
 def transform_target_variable(y):
 	"""
 	Performs a transformation on the target variable
@@ -49,7 +51,7 @@ def bin_variable(y, n_labels=3):
 	--------
 
 	labels: Pandas Series representing categorical variable generated
-	        after binning.
+			after binning.
 	"""
 
 	bins   = np.linspace(y.min(), y.max(), n_labels)
@@ -84,3 +86,19 @@ def freq_bin_variable(y, var_name, n_labels=2):
 
 	return labels
 
+
+
+def label_encoding(data, categorical_features):
+	for feat in categorical_features:
+		lbl = LabelEncoder()
+		lbl.fit(data[feat])
+
+		data[feat] = lbl.transform(data[feat])
+
+	return data
+
+def get_categorical_features(columns):
+	return [col for col in columns if 'cat' in col]
+
+def get_numerical_features(columns):
+	return [col for col in columns if 'cont' in col]
